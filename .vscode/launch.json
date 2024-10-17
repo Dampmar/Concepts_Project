@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "c:/Users/Usuario/Desktop/Git Repositories/Concepts_Project",
-      "program": "c:/Users/Usuario/Desktop/Git Repositories/Concepts_Project/build/Debug/outDebug",
+      "externalConsole": false,
+      "cwd": "/Users/dampmaringmail.com/Desktop/GitHub Repos/Concepts_Project",
+      "program": "/Users/dampmaringmail.com/Desktop/GitHub Repos/Concepts_Project/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

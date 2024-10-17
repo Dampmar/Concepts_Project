@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "library.h"
 
 FILE *inputFile;
@@ -19,13 +20,13 @@ void input();
 void song();
 void bar();
 void meter();
-void numerator(int min, int max);
-void denominator();
+int numerator(int min, int max);
+int denominator();
 void chords();
 void chord();
 void root();
 void note();
-void letter();
+char letter();
 void acc();
 void description();
 void qual();
@@ -36,7 +37,7 @@ void bass();
 void getToken();
 void match(char c, char* message);
 void error(char* message);
-void readFileContents();
+void readFileContents(char* filePath);
 void getAdjacentToken(char* c, int n);
 
 // Helper functions 
@@ -80,6 +81,10 @@ void match(char c, char *message) {
 
 void getToken() {
     static size_t currentIndex = 0;
+    // Skipping spaces 
+    while (token == ' ')
+        currentIndex++;
+
     if (currentIndex < fileSize) {
         token = fileContents[currentIndex++];
     } else {
@@ -97,25 +102,25 @@ void input() {
 void song() {
     bar();
     while (isBar(token)) bar();
-    match("|", "'|' expected");
+    match('|', "'|' expected");
 }
 
 // Parsing a bar 
 void bar() {
     if (isdigit(token)) meter();
     chords();
-    match("|", "'|' expected");
+    match('|', "'|' expected");
 }
 
 // Parsing the meter 
 void meter() {
     numerator(1, 16);
-    match("/", "'/' expected");
+    match('/', "'/' expected");
     denominator();
 }
 
 // Parsing numerator and checking for validity 
-void numerator(int min, int max) {
+int numerator(int min, int max) {
     int value = 0;
     if (!isdigit(token)) 
         error("Expected a number");
@@ -125,10 +130,11 @@ void numerator(int min, int max) {
     }
     if (value < min || value > max)
         error("Number out of range");
+    return value;
 }
 
 // Parsing the denominator and checking for validity 
-void denominator() {
+int denominator() {
     int value = 0;
     if (!isdigit(token))
         error("Expected a number");
@@ -136,11 +142,12 @@ void denominator() {
         value = value * 10 + (token - '0');
         match(token, "");
     }
-    static int validDenominatorValues = [1,2,4,8,16];
+    static int validDenominatorValues[] = {1,2,4,8,16};
     if (!isValidDenominator(value, 
                             validDenominatorValues, 
                             sizeof(validDenominatorValues) / sizeof(int)))
         error("Invalid denominator value");
+    return value;
 }
 
 // Parsing the chords section 
@@ -158,6 +165,141 @@ void chords() {
     }
 }
 
+// Parsing the chord section
+void chord() {
+    static char firstDescription[] = {'-', '+', 'o', '^', '7', '9', '1', 's'};
+    root(); 
+    if (isDescription(token, firstDescription)) description();
+    if (token == '/') bass();
+}
+
+// Parsing the root 
+void root() {
+    note();
+}
+
+// Parsing the note 
+void note() {
+    letter();
+    if (isAcc(token)) acc();
+}
+
+// Parsing the letter
+char letter() {
+    char result;
+    switch(token){
+        case 'A':
+            result = token;
+            match('A', "expected A");
+        case 'B':
+            result = token;
+            match('B', "expected B");
+        case 'C':
+            result = token;
+            match('C', "expected C");
+        case 'D':
+            result = token;
+            match('D', "expected D");
+        case 'E':
+            result = token;
+            match('E', "expected E");
+        case 'F':
+            result = token;
+            match('F', "expected F");
+        case 'G':
+            result = token;
+            match('G', "expected G");
+        default:
+            error("invalid letter");
+    }
+    printf("Letter: %c\n", result);
+    return result;
+}
+
+// Parsing the acc
+void acc() {
+    if (token == '#' || token == 'b')
+        match(token, "");
+}
+
+// Parsing description 
+void description() {
+    bool Qual = false, Qnum = false, Sus = false;
+    // If it has a quality parse qual
+    if (token == '-' || token == '+' || token == 'o') {
+        qual();
+        Qual = true;
+    }
+    // If it is a qnum parse qnum 
+    if (token == '^' || token == '7' || token == '9' || token == '1') {
+        qnum();
+        Qnum = true;
+    }
+    // If it starts with sus and doesn't contain qual continue 
+    if (token == 's' && !Qual) {
+        sus();
+        Sus = true;
+    }
+    // If none are used then input is incorrect 
+    if (!Qual && !Sus && !Qnum) {
+        error("invalid description input");
+    }
+}
+
+// Parsing qualities
+void qual() {
+    switch(token){
+        case '-':
+            match('-', "expected -");
+        case '+':
+            match('+', "expected +");
+        case 'o':
+            match('o', "expected o");
+        default:
+            error("invalid qual");
+    }
+}
+
+// Parsing qnum 
+void qnum() {
+    if (token == '^')
+        match('^', "expected ^");
+    num();
+}
+
+// Parsing num 
+void num() {
+    int value = 0; 
+    if (!isdigit(token))
+        error("Expected a number");
+    while (isdigit(token)) {
+        value = value * 10 + (token - '0');
+        match(token, "");
+    }
+    if (!(value == 7 || value == 9 || value == 11 || value == 13))
+        error("invalid num");
+}
+
+// Parsing sus 
+void sus() {
+    match('s', "invalid sus");
+    match('u', "invalid sus");
+    match('s', "invalid sus");
+    switch(token){
+        case '2':
+            match('2', "invalid sus number");
+        case '4':
+            match('4', "invalid sus number");
+        default:
+            error("invalid sus number");
+    }
+}
+
+// Parsing bass 
+void bass() {
+    match('/', "expected /");
+    note();
+}
 
 int main() {
     printf("Enter the file name: ");
@@ -166,5 +308,6 @@ int main() {
 
     readFileContents(filePath);
     printf("%s", fileContents);
+    input();
     return 0;
 }
