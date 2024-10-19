@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1729298733.57135 "c:/Users/Usuario/Desktop/Git Repositories/Concepts_Project/Documentation/Deliverable2/Deliverable2.tex" "Deliverable2.pdf" "Deliverable2" 1729298735.52872 0
+["pdflatex"] 1729299244.8332 "c:/Users/Usuario/Desktop/Git Repositories/Concepts_Project/Documentation/Deliverable2/Deliverable2.tex" "Deliverable2.pdf" "Deliverable2" 1729299246.78443 0
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1728193913 91068 d22bcba8c7c4e85b07636585e11851ac ""
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1727291760 11548 5fd147a3aa160d0c3fb9fbbc0cfd8533 ""
   "C:/Users/Usuario/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1727456067 11949141 7855898fea5eda141da1065ba321d66e ""
@@ -200,10 +200,10 @@
   "C:/Users/Usuario/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1718356376 7243 e5dac1240636811edb77568b81818372 ""
   "C:/Users/Usuario/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Usuario/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "Deliverable2.aux" 1729298735 4585 67e0bb513e85217171f5186df5c19639 "pdflatex"
-  "Deliverable2.out" 1729298735 1945 dae30bb9cdfd9320e743009886b966ea "pdflatex"
-  "Deliverable2.tex" 1729298730 15459 e87e5595bb4f238cf436d64ca2ff443a ""
-  "Deliverable2.toc" 1729298735 1187 ac6ec6fe6a1952a7e409a3225df22d95 "pdflatex"
+  "Deliverable2.aux" 1729299246 4585 67e0bb513e85217171f5186df5c19639 "pdflatex"
+  "Deliverable2.out" 1729299246 1945 dae30bb9cdfd9320e743009886b966ea "pdflatex"
+  "Deliverable2.tex" 1729299244 15459 e87e5595bb4f238cf436d64ca2ff443a ""
+  "Deliverable2.toc" 1729299246 1187 ac6ec6fe6a1952a7e409a3225df22d95 "pdflatex"
   "Image_AdmiralHalsey.png" 1729297932 54612 f91eb34df57ddb22b36d5bb0281275c0 ""
   "Image_AllOfMeParsed.png" 1729297984 63211 020dd7e07a81c9b357918667b8b5d788 ""
   "Image_DeMusicaLigera.png" 1729297819 43439 3e78ec2b082e193afcf0750b2cc16a78 ""
@@ -211,7 +211,7 @@
   "Image_ElDiaQueMeQuiera.png" 1729297959 83834 b3653e258c3930023756a628dfbd7394 ""
   "Image_LaGataBajoLaLluvia.png" 1729297827 55687 054873b1d57fc949a6b5ae86e1737ad9 ""
   "Image_SkateParsed.png" 1729297663 70158 91092935f35476b004538953661e1a8c ""
-  "c:/Users/Usuario/Desktop/Git Repositories/Concepts_Project/Documentation/Deliverable2/Deliverable2.tex" 1729298730 15459 e87e5595bb4f238cf436d64ca2ff443a ""
+  "c:/Users/Usuario/Desktop/Git Repositories/Concepts_Project/Documentation/Deliverable2/Deliverable2.tex" 1729299244 15459 e87e5595bb4f238cf436d64ca2ff443a ""
   (generated)
   "Deliverable2.aux"
   "Deliverable2.log"
