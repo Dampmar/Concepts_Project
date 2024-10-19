@@ -32,35 +32,24 @@ void bass();
 
 // Main function
 int main(void){
-    // Use entire filepaths for this section
-    char filepath[365];
-    printf("Enter the path of the file to be parsed: ");
-    scanf("%[^\n]s", filepath);
-    // Checking if the file is indeed a .txt file 
-    if (strlen(filepath) < 4 || strcmp(filepath + strlen(filepath) - 4, ".txt") != 0) {
-        printf("Error: Only .txt files are supported\n");
-        exit(1);
-    }
-
-    // Opening the file to handle it 
-    inputFile = fopen(filepath, "r");
+    char filename[100];
+    printf("Enter the name of the file to be parsed: ");
+    scanf("%s", filename);
+    inputFile = fopen(filename, "r");
     if (inputFile == NULL){
-        printf("Error: cannot open file\n");
+        printf("Error opening file\n");
         exit(1);
     }
-    
-    printf("The following characters demonstrate the tokens being parsed.\n\n");
     getToken();
     input();
-    printf("\n");
-    printf("\nParsing completed successfully\n");
+    printf("Parsing completed successfully\n");
     fclose(inputFile);
     return 0;
 }
 
 // Program functions
 void error(char* message) {
-    printf("\nParse error: %s\n", message);
+    printf("Parse error: %s\n", message);
     exit(1);
 }
 
@@ -68,7 +57,7 @@ void getToken(){
     // tokens are characters
     token = getc(inputFile);
     if (token == EOF) 
-        return; 
+        exit(1); 
     while(token == ' ' || token == '\n' || token == '\t'){
         token = getc(inputFile);
     }
@@ -94,7 +83,7 @@ void song(){
     do {
         bar();
     } while (token != '|');
-    printf("%c", token);
+    printf("%c successfully matched in song\n", token);
     match('|', "| expected");
 }
 
@@ -103,17 +92,17 @@ void bar(){
     if (isdigit(token))
         meter();
     chords();
-    printf("%c", token);
+    printf("%c successfully matched in bar\n", token);
     match('|', "| expected");
 }
 
 void meter(){
     // meter -> numerator "/" denominator 
     int x = numerator();
-    printf("%d%c", x, token);
+    printf("Meter: %d %c", x, token);
     match('/', "/ expected in meter");
     int y = denominator();
-    printf("%d", y);
+    printf("%d\n", y);
 }
 
 int numerator(){
@@ -155,10 +144,10 @@ void chords(){
     if (token == 'N') {
         match('N', "N expected");
         match('C', "C expected");
-        printf("NC");
+        printf("Chords: NC");
     } else if (token == '%') {
-        match('%', "% expected");
-        printf("%%");
+        match('%', "\% expected");
+        printf("Chords: %");
     } else {
         do { chord(); } while (token != '|');
     } 
@@ -198,11 +187,11 @@ char letter(){
         case 'F':
         case 'G':
             temp = token;
-            printf("%c", token);
+            printf("Letter: %c\n", token);
             getToken();
             break;
         default:
-            error("invalid character found");
+            error("invalid note (letter)");
             break;
     }
     return temp;
@@ -221,7 +210,7 @@ char acc(){
             error("invalid accidental");
             break;
     }
-    printf("%c", temp);
+    printf("Acc: %c\n", temp);
     return temp;
 }
 
@@ -259,7 +248,7 @@ char qual(){
             error("invalid qual");
             break;
     }
-    printf("%c", temp);
+    printf("Qual: %c\n", temp);
     return temp;
 }
 
@@ -271,8 +260,7 @@ void qnum(){
         match('^', "^ expected");
     }
     int x = num();
-    if (temp == ' ') printf("%d", x);
-    else printf("%c%d", temp, x);
+    printf("Qnum: %c %d\n", temp, x);
 }
 
 int num(){
@@ -297,11 +285,11 @@ void sus(){
         match('s', "invalid sus sequence");
         switch(token){
             case '2':
-                printf("sus2");
+                printf("Suspension: sus2\n");
                 match('2', "2 expected");
                 break;
             case '4':
-                printf("sus4");
+                printf("Suspension: sus4\n");
                 match('4', "4 expected");
                 break;
             default:
@@ -312,7 +300,6 @@ void sus(){
 
 void bass(){
     // bass => "/" note
-    printf("/");
     match('/', "/ expected");
     note();
 }
