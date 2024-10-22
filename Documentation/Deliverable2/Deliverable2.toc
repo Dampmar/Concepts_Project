@@ -12,3 +12,4 @@
 \contentsline {subsubsection}{\numberline {2.2.3}\texttt {void match(char c, char* message)}}{5}{subsubsection.2.2.3}%
 \contentsline {subsection}{\numberline {2.3}Grammar Functions}{5}{subsection.2.3}%
 \contentsline {section}{\numberline {3}Test and Results}{6}{section.3}%
+\contentsline {section}{\numberline {4}Discussion}{7}{section.4}%

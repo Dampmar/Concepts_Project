@@ -24,7 +24,7 @@
 \newpage
 \section{Introduction}
 \subsection{Context}
-For the 2$^{nd}$ deliverable of this project we where expected to create a parser that does not compute the notes that make up the chords. For the elaboration of this section of the project we used the following grammar and sets to help us guide us when coding this parser:
+For the 2$^{nd}$ deliverable of this project we where expected to create a parser that does not compute the notes that make up the chords. For the elaboration of this section of the project we used the following grammar and sets to help as a guide when coding this parser:
 \subsubsection{Grammar Rules}
 \begin{figure}[H]
     \centering
@@ -117,7 +117,8 @@ Figure \ref*{fig:Grammar} and \ref*{fig:FirstAndFollowSets} helped us develop th
 The usage of this program is fairly easy. To use this program as of the current state of this folder you must first add a song as a \texttt{.txt} file to the \textbf{Songs} folder. Run the program, when prompted "\texttt{Enter the path of the file to be parsed:}" copy the file path.
 \subsection{Platform}
 The development of this project was all done in C with the help of the grammar rules and Chapter 6.6 - Parsing Techniques and Tools from Programming Languages - Kenneth C. Louden - 3ed.
-\section{Functions}
+\section{Functions} \label{fig:Functions}
+
 \subsection{Main}
 The main function is fairly straightforward it is in charge of setting up the parser by following the next steps:
 \begin{itemize}
@@ -127,7 +128,7 @@ The main function is fairly straightforward it is in charge of setting up the pa
 \end{itemize}
 To better comprehend this behavior, following is the code of the main function. 
 \begin{figure}[H]
-    \begin{lstlisting}
+    \begin{lstlisting}[language=C]
 int main(void){
     char filepath[365];
     printf("Enter the path of the file to be parsed: ");
@@ -143,7 +144,7 @@ int main(void){
         exit(1);
     }
     printf("The following characters demonstrate the tokens being parsed.\n\n");
-    getToken();
+    getToken();         // initiates the file reading 
     input();
     printf("\n");
     printf("\nParsing completed successfully\n");
@@ -158,7 +159,7 @@ This section contains the functions that aren't grammar dependant and can be use
 \subsubsection{\texttt{void error(char *message)}}
 This function is at simple as it gets, whenever called it is supposed to print out a message for the user to see whenever there is an error, and exit the program. In this program it is primarily used to catch parsing errors and prevent them from propagating later on.
 \begin{figure}[H]
-    \begin{lstlisting}
+    \begin{lstlisting}[language=C]
 void error(char* message) {
     printf("\nParse error: %s\n", message);
     exit(1);
@@ -170,7 +171,7 @@ void error(char* message) {
 \subsubsection{\texttt{void getToken()}}
 This function is in charge of retrieving the next token to be parsed whenever it is called, ignoring newlines, tabulars and spaces. Thus retrieving possibly parsable tokens from the file.
 \begin{figure}[H]
-    \begin{lstlisting}
+    \begin{lstlisting}[language=C]
 void getToken(){
     token = getc(inputFile);
     if (token == EOF) return; 
@@ -184,7 +185,7 @@ void getToken(){
 \subsubsection{\texttt{void match(char c, char* message)}} 
 This function is simple, it is a controller that is in charge of deciding whether the current token is the desired character and we should prompt the \texttt{getToken()} function, or if there was an error parsing and it should prompt an \texttt{error(message)}.
 \begin{figure}[H]
-    \begin{lstlisting}
+    \begin{lstlisting}[language=C]
 void match(char c, char* message){
     if (token == c) 
         getToken();
@@ -216,8 +217,8 @@ This section contains all the grammar dependant functions used in the developmen
     \item \textbf{Rule 17:} \texttt{void sus()} - is in charge of checking if the suspension is either $sus2$ or $sus4$.
     \item \textbf{Rule 18:} \texttt{void bass()} - is in charge of parsing the structure of a bass by matching the '/' and prompting the \texttt{note} function.
 \end{itemize}
-\indent Some of these functions have added functionality to print certain results for us as the user of the program to actually visualize the characters being parsed and the order of execution.
-\section{Test and Results}
+\indent Some of these functions have added functionality to print certain results for the user of the program to actually visualize the characters being parsed and the order of execution.
+\section{Test and Results} \label{fig:Results}
 The tests for the program are all the '.txt' files posted by Dr. Arturo Camacho on blackboard, they are songs parsed using Polynizer app\footnote{Polynizer app link: \url{https://www.polynizer.com}} which are just a set of terminals/tokens bundled in a neatly organized manner, that when played create a song. Those tests are encompassed by the following itemize, which are the files in the Songs folder and their respective results. 
 \begin{itemize}
     \item \textbf{Test 1}: Bruno Mars, Anderson Paak, Silk Sonic - Skate.txt
@@ -263,4 +264,7 @@ The tests for the program are all the '.txt' files posted by Dr. Arturo Camacho 
         \caption{Image of outputs on the command line.}
     \end{figure}
 \end{itemize}
+For the purpose of this deliverable we created a set of \texttt{printf} to demonstrate the behavior of the parsing. The outputs demonstrated in this section are the ones stated here.
+\section{Discussion}
+This deliverable manages to encompass the desire behavior of a parser, without the full chord calculator which was what was intended for this deliverable. It manages to do so with the use of the functions seen in Section \ref{fig:Functions}, this is demonstrated in Section \ref{fig:Results} with the use of the examples sent by the professor. The examples are in the folder \textbf{Songs} appended with this document. For a more detailed analysis on the functions used to develop the overall functionality please revise the \textbf{Parser.c} file found in the same folder as this document.
 \end{document}
