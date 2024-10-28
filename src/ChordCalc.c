@@ -74,10 +74,10 @@ void printChords(ChordNode* head) {
         printf("%4d. ", chordNum);
         createChordArr(&temp->chord, arr);  // Calculating pitch class
         // Printing the pitch class of the chord 
-        printf("\t ");
+        printf("\t");
         for (int i = 0; i < 12; i++) {
             if (arr[i]) {
-                printf("* \t");
+                printf(" * \t");
                 pitchClassNum[i]++;
             }
             else {
@@ -114,75 +114,54 @@ void createChordArr(Chord* chord, int* arr) {
 
     // Handle chord quality
     switch (chord->qual) {
-        case '-':
+        default: // Major
+            arr[(rootPC + 4) % 12] = 1;
+            arr[(rootPC + 7) % 12] = 1;
+            break;
+        case '-': // Minor
             arr[(rootPC + 3) % 12] = 1;
             arr[(rootPC + 7) % 12] = 1;
             break;
-        case '+':
+        case '+': // Augmented
             arr[(rootPC + 4) % 12] = 1;
             arr[(rootPC + 8) % 12] = 1;
             break;
-        case 'o':
+        case 'o': // Diminished
             arr[(rootPC + 3) % 12] = 1;
             arr[(rootPC + 6) % 12] = 1;
             break;
-        default: 
-            arr[(rootPC + 4) % 12] = 1;
-            arr[(rootPC + 7) % 12] = 1;
-            break;
     }
     
-    // Handle chord qnum 
+    // Handle chord extension
     switch (chord->extension) {
         case 7:
-            if (chord->ext_type == '^') {
-                arr[(rootPC + 11) % 12] = 1;
-            } else {
-                arr[(rootPC + 10) % 12] = 1;
-            }
+            arr[(rootPC + (chord->ext_type == '^' ? 11 : 10)) % 12] = 1;
             break;
         case 9:
-            if (chord->ext_type == '^') {
-                arr[(rootPC + 2) % 12] = 1;
-                arr[(rootPC + 11) % 12] = 1;
-            } else {
-                arr[(rootPC + 2) % 12] = 1;
-                arr[(rootPC + 10) % 12] = 1;
-            }
+            arr[(rootPC + 2) % 12] = 1;
+            arr[(rootPC + (chord->ext_type == '^' ? 11 : 10)) % 12] = 1;
             break;
         case 11:
-            if (chord->ext_type == '^') {
-                arr[(rootPC + 5) % 12] = 1;
-                arr[(rootPC + 11) % 12] = 1;
-            } else {
-                arr[(rootPC + 5) % 12] = 1;
-                arr[(rootPC + 10) % 12] = 1;
-            }
+            arr[(rootPC + 5) % 12] = 1;
+            arr[(rootPC + (chord->ext_type == '^' ? 11 : 10)) % 12] = 1;
             break;
         case 13:
-            if (chord->ext_type == '^') {
-                arr[(rootPC + 9) % 12] = 1;
-                arr[(rootPC + 11) % 12] = 1;
-            } else {
-                arr[(rootPC + 9) % 12] = 1;
-                arr[(rootPC + 10) % 12] = 1;
-            }
+            arr[(rootPC + 9) % 12] = 1;
+            arr[(rootPC + (chord->ext_type == '^' ? 11 : 10)) % 12] = 1;
+            break;
         default:
             break;
     }
 
     // Handle chord suspension
-    switch (chord->sus) {
-        case 2:
-            arr[(rootPC + 2) % 12] = 1;
-            arr[(rootPC + 7) % 12] = 1;
-            break;
-        case 4:
-            arr[(rootPC + 5) % 12] = 1;
-            arr[(rootPC + 7) % 12] = 1;
-            break;
-        default:
-            break;
+    if (chord->sus == 2) {
+        arr[(rootPC + 2) % 12] = 1; // Add second
+        arr[(rootPC + 4) % 12] = 0; // Clear third
+        arr[(rootPC + 7) % 12] = 1; // Add fifth
+    } else if (chord->sus == 4) {
+        arr[(rootPC + 5) % 12] = 1; // Add fourth
+        arr[(rootPC + 4) % 12] = 0; // Clear third
+        arr[(rootPC + 7) % 12] = 1; // Add fifth
     }
 
     // Handle chord bass
@@ -190,7 +169,6 @@ void createChordArr(Chord* chord, int* arr) {
         int bassPC = noteToPitchClass(chord->bass);
         if (bassPC != -1) arr[bassPC] = 1;
     }
-
 }
 
 int noteToPitchClass(const char* root) {
@@ -199,30 +177,37 @@ int noteToPitchClass(const char* root) {
             if (root[1] == 'b') return 11;
             if (root[1] == '\0') return 0;
             if (root[1] == '#') return 1;
+            break;
         case 'D':
             if (root[1] == 'b') return 1;
             if (root[1] == '\0') return 2;
             if (root[1] == '#') return 3;
+            break;
         case 'E':
             if (root[1] == 'b') return 3;
             if (root[1] == '\0') return 4;
             if (root[1] == '#') return 5;
+            break;
         case 'F':
             if (root[1] == 'b') return 4;
             if (root[1] == '\0') return 5;
             if (root[1] == '#') return 6;
+            break;
         case 'G':
             if (root[1] == 'b') return 6;
             if (root[1] == '\0') return 7;
             if (root[1] == '#') return 8;
+            break;
         case 'A':
             if (root[1] == 'b') return 8;
             if (root[1] == '\0') return 9;
             if (root[1] == '#') return 10;
+            break;
         case 'B':
             if (root[1] == 'b') return 10;
             if (root[1] == '\0') return 11;
             if (root[1] == '#') return 0;
+            break;
         default:
             return -1;
     }
@@ -238,23 +223,6 @@ void printChord(Chord* chord) {
     if (chord->sus != 0) { printf("sus%d", chord->sus); }                               // if it has a sus 
     // Checking for the bass of the chord
     if (chord->bass[0] != '\0') { printf("/%s", chord->bass); }
-}
-
-void printCho(ChordNode* head) {
-    ChordNode* temp = head;
-    while (temp != NULL) {
-        printf("Chord: %s", temp->chord.root);
-        if (temp->chord.qual != ' ') printf("%c", temp->chord.qual);
-
-        if (temp->chord.ext_type == '^') printf("%c%d", temp->chord.ext_type, temp->chord.extension);
-        else if (temp->chord.extension != 0) printf("%d", temp->chord.extension);
-
-        if (temp->chord.sus != 0) printf("sus%d", temp->chord.sus);
-
-        if (temp->chord.bass[0] != '\0') printf(" / %s\n", temp->chord.bass);
-        else printf("\n");
-        temp = temp->next;
-    }
 }
 
 void freeChords(ChordNode* head) {
@@ -382,6 +350,7 @@ void chord(Chord* chord){
         description(chord);
     else {
         chord->extension = 0;
+        chord->ext_type = ' ';
         chord->qual = ' ';
         chord->sus = 0;
     }
@@ -452,7 +421,7 @@ void description(Chord* chord){
     if (token == '^' || token == '7' || token == '9' || token == '1'){
         qnum(chord);
         hasQnum = true;
-    } else { chord->extension = 0; }
+    } else { chord->extension = 0; chord->ext_type = ' '; }
     if (token == 's' && !hasQual) {
         sus(chord);
         hasSus = true;

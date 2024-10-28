@@ -1,0 +1,42 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Context}{2}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Grammar Rules}{2}{subsubsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.2}First and Follow Sets of Grammar}{3}{subsubsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.2}Usage}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Platform}{4}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Data Structures}{4}{section.2}%
+\contentsline {section}{\numberline {3}Functions}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Main}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Token Validation}{5}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}\texttt {void error(char *message)}}{5}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}\texttt {void getToken()}}{5}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}\texttt {void match(char c, char* message)}}{6}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.3}Grammar Functions}{6}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}\texttt {void input()}}{6}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}\texttt {void song(ChordNode** head)}}{6}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}\texttt {void bar(ChordNode** head)}}{6}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}\texttt {void meter()}}{6}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.5}\texttt {int numerator()}}{6}{subsubsection.3.3.5}%
+\contentsline {subsubsection}{\numberline {3.3.6}\texttt {int denominator()}}{7}{subsubsection.3.3.6}%
+\contentsline {subsubsection}{\numberline {3.3.7}\texttt {void chords(ChordNode** head)}}{7}{subsubsection.3.3.7}%
+\contentsline {subsubsection}{\numberline {3.3.8}\texttt {void chord(Chord* chord)}}{7}{subsubsection.3.3.8}%
+\contentsline {subsubsection}{\numberline {3.3.9}\texttt {void root(char* root)}}{7}{subsubsection.3.3.9}%
+\contentsline {subsubsection}{\numberline {3.3.10}\texttt {void note(char* res)}}{7}{subsubsection.3.3.10}%
+\contentsline {subsubsection}{\numberline {3.3.11}\texttt {char letter()}}{7}{subsubsection.3.3.11}%
+\contentsline {subsubsection}{\numberline {3.3.12}\texttt {char acc()}}{7}{subsubsection.3.3.12}%
+\contentsline {subsubsection}{\numberline {3.3.13}\texttt {void description(Chord* chord)}}{7}{subsubsection.3.3.13}%
+\contentsline {subsubsection}{\numberline {3.3.14}\texttt {char qual()}}{7}{subsubsection.3.3.14}%
+\contentsline {subsubsection}{\numberline {3.3.15}\texttt {void qnum(Chord* chord)}}{7}{subsubsection.3.3.15}%
+\contentsline {subsubsection}{\numberline {3.3.16}\texttt {int num()}}{7}{subsubsection.3.3.16}%
+\contentsline {subsubsection}{\numberline {3.3.17}\texttt {void sus(Chord* chord)}}{8}{subsubsection.3.3.17}%
+\contentsline {subsubsection}{\numberline {3.3.18}\texttt {void bass(char* bass)}}{8}{subsubsection.3.3.18}%
+\contentsline {subsection}{\numberline {3.4}Chord Calculator Functions}{8}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}\texttt {ChordNode* createNode(Chord chord)}}{8}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}\texttt {ChordNode* appendChord(ChordNode* head, Chord chord)}}{8}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}\texttt {void printChords(ChordNode* head)}}{8}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.4}\texttt {void createChordArr(Chord* chord, int* arr)}}{8}{subsubsection.3.4.4}%
+\contentsline {subsubsection}{\numberline {3.4.5}\texttt {int noteToPitchClass(const char* root)}}{8}{subsubsection.3.4.5}%
+\contentsline {subsubsection}{\numberline {3.4.6}\texttt {void printChord(Chord* chord)}}{8}{subsubsection.3.4.6}%
+\contentsline {subsubsection}{\numberline {3.4.7}\texttt {void freeChords(ChordNode* head)}}{8}{subsubsection.3.4.7}%
+\contentsline {section}{\numberline {4}Test and Results}{8}{section.4}%
+\contentsline {section}{\numberline {5}Discussion}{11}{section.5}%
