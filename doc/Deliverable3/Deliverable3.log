@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.27)  27 OCT 2024 20:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.27)  30 OCT 2024 15:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -665,55 +665,55 @@ Overfull \hbox (27.03699pt too wide) in paragraph at lines 184--185
 [6]
 
 [7{C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/mnsymbol/MnSymbolD.enc}]
-<Image_SampleOutput.png, id=366, 1120.9378pt x 301.8778pt>
+<Image_SampleOutput.png, id=366, 1051.67906pt x 277.035pt>
 File: Image_SampleOutput.png Graphic file (type png)
 <use Image_SampleOutput.png>
 Package pdftex.def Info: Image_SampleOutput.png  used on input line 299.
-(pdftex.def)             Requested size: 452.9679pt x 121.98807pt.
+(pdftex.def)             Requested size: 452.9679pt x 119.3214pt.
 
 
 [8]
-<Image_SkateParsed.png, id=377, 1041.1397pt x 338.76563pt>
+<Image_SkateParsed.png, id=377, 1014.79124pt x 292.09125pt>
 File: Image_SkateParsed.png Graphic file (type png)
 <use Image_SkateParsed.png>
 Package pdftex.def Info: Image_SkateParsed.png  used on input line 307.
-(pdftex.def)             Requested size: 452.9679pt x 147.3877pt.
-<Image_AllOfMeParsed.png, id=378, 1048.66782pt x 357.58594pt>
+(pdftex.def)             Requested size: 452.9679pt x 130.37907pt.
+<Image_AllOfMeParsed.png, id=378, 1027.58907pt x 301.125pt>
 File: Image_AllOfMeParsed.png Graphic file (type png)
 <use Image_AllOfMeParsed.png>
 Package pdftex.def Info: Image_AllOfMeParsed.png  used on input line 313.
-(pdftex.def)             Requested size: 452.9679pt x 154.45735pt.
-<Image_ElDiaQueMeQuiera.png, id=379, 1109.64563pt x 296.60812pt>
+(pdftex.def)             Requested size: 452.9679pt x 132.73892pt.
+<Image_ElDiaQueMeQuiera.png, id=379, 1056.94875pt x 298.86656pt>
 File: Image_ElDiaQueMeQuiera.png Graphic file (type png)
 <use Image_ElDiaQueMeQuiera.png>
 Package pdftex.def Info: Image_ElDiaQueMeQuiera.png  used on input line 319.
-(pdftex.def)             Requested size: 452.9679pt x 121.07605pt.
+(pdftex.def)             Requested size: 452.9679pt x 128.08144pt.
 
 
 [9 <./Image_SampleOutput.png> <./Image_SkateParsed.png> <./Image_AllOfMeParsed.png>]
-<Image_AdmiralHalsey.png, id=390, 1018.55531pt x 333.49594pt>
+<Image_AdmiralHalsey.png, id=390, 1017.04968pt x 285.31593pt>
 File: Image_AdmiralHalsey.png Graphic file (type png)
 <use Image_AdmiralHalsey.png>
 Package pdftex.def Info: Image_AdmiralHalsey.png  used on input line 325.
-(pdftex.def)             Requested size: 452.9679pt x 148.31108pt.
-<Image_DontStopMeNow.png, id=391, 1056.19594pt x 333.49594pt>
+(pdftex.def)             Requested size: 452.9679pt x 127.07184pt.
+<Image_DontStopMeNow.png, id=391, 1056.94875pt x 286.82156pt>
 File: Image_DontStopMeNow.png Graphic file (type png)
 <use Image_DontStopMeNow.png>
 Package pdftex.def Info: Image_DontStopMeNow.png  used on input line 331.
-(pdftex.def)             Requested size: 452.9679pt x 143.02388pt.
-<Image_LaGataBajoLaLluvia.png, id=392, 1054.6903pt x 293.59688pt>
+(pdftex.def)             Requested size: 452.9679pt x 122.91946pt.
+<Image_LaGataBajoLaLluvia.png, id=392, 1038.12843pt x 292.84406pt>
 File: Image_LaGataBajoLaLluvia.png Graphic file (type png)
 <use Image_LaGataBajoLaLluvia.png>
 Package pdftex.def Info: Image_LaGataBajoLaLluvia.png  used on input line 337.
-(pdftex.def)             Requested size: 452.9679pt x 126.09187pt.
+(pdftex.def)             Requested size: 452.9679pt x 127.77489pt.
 
 
 [10 <./Image_ElDiaQueMeQuiera.png> <./Image_AdmiralHalsey.png> <./Image_DontStopMeNow.png>]
-<Image_DeMusicaLigeraParsed.png, id=403, 1029.8475pt x 291.33844pt>
+<Image_DeMusicaLigeraParsed.png, id=403, 1002.74625pt x 279.29344pt>
 File: Image_DeMusicaLigeraParsed.png Graphic file (type png)
 <use Image_DeMusicaLigeraParsed.png>
 Package pdftex.def Info: Image_DeMusicaLigeraParsed.png  used on input line 343.
-(pdftex.def)             Requested size: 452.9679pt x 128.1404pt.
+(pdftex.def)             Requested size: 452.9679pt x 126.16672pt.
 
 
 [11 <./Image_LaGataBajoLaLluvia.png> <./Image_DeMusicaLigeraParsed.png>] (Deliverable3.aux)
@@ -733,7 +733,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  84i,16n,93p,645b,1299s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Usuario\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/mnsymbol/MnSymbol10.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/Usuario/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on Deliverable3.pdf (11 pages, 375326 bytes).
+Output written on Deliverable3.pdf (11 pages, 379202 bytes).
 PDF statistics:
  525 PDF objects out of 1000 (max. 8388607)
  163 named destinations out of 1000 (max. 500000)
