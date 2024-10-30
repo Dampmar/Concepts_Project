@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1730325193.72229 "c:/Users/Usuario/Desktop/Git Repositories/Concepts_Project/doc/Deliverable3/Deliverable3.tex" "Deliverable3.pdf" "Deliverable3" 1730325195.45197 0
+["pdflatex"] 1730328200.30526 "c:/Users/Usuario/Desktop/Git Repositories/Concepts_Project/doc/Deliverable3/Deliverable3.tex" "Deliverable3.pdf" "Deliverable3" 1730328202.19011 0
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1729805707 131256 5e21bd36fcb976012a1fbc159b50ae58 ""
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1727291760 11548 5fd147a3aa160d0c3fb9fbbc0cfd8533 ""
   "C:/Users/Usuario/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1727456067 11949141 7855898fea5eda141da1065ba321d66e ""
@@ -203,10 +203,10 @@
   "C:/Users/Usuario/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1718356376 7243 e5dac1240636811edb77568b81818372 ""
   "C:/Users/Usuario/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Usuario/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "Deliverable3.aux" 1730325195 10316 8da109a50e729e99bfa49666e4a2ede6 "pdflatex"
-  "Deliverable3.out" 1730325195 7365 4482e0a972fc7be4805a5bde8c8de817 "pdflatex"
+  "Deliverable3.aux" 1730328201 10316 8da109a50e729e99bfa49666e4a2ede6 "pdflatex"
+  "Deliverable3.out" 1730328201 7365 4482e0a972fc7be4805a5bde8c8de817 "pdflatex"
   "Deliverable3.tex" 1730081168 22399 6c7c633701be09b796eac52c2cf0b5b4 ""
-  "Deliverable3.toc" 1730325195 4187 5e90ebf07d569f2157d5e495ac3ca2f3 "pdflatex"
+  "Deliverable3.toc" 1730328201 4187 5e90ebf07d569f2157d5e495ac3ca2f3 "pdflatex"
   "Image_AdmiralHalsey.png" 1730325027 20616 b40a6e91060ea6784d7b62ddaaa19d52 ""
   "Image_AllOfMeParsed.png" 1730324945 20422 f0261d0ee8d0d9c169bfc276a1547205 ""
   "Image_DeMusicaLigeraParsed.png" 1730325188 21116 07c548b9654858625b742d455b008797 ""
