@@ -163,6 +163,7 @@ Also, we utilized the linked list data structure to dynamically hold a list of c
                     } ChordNode;
 \end{lstlisting}
 \section{Functions} \label{fig:Functions}
+This program is in charge of parsing a \texttt{.txt} that contains a song in the form stated in \ref{fig:SampleInput}, and displaying the output as the pitch classes of each chord that is played in the song. To achieve this we separate our code into 4 sections. We used linked lists to keep track of the chords as they are parsed, and once the parsing is finished we display those results while keeping track which pitch classes are being played. Ending with total amounts each one is played. Following we will explain each part of the program.
 \subsection{Main}
 The main function is in charge of the logic behind coordinating the functions to parsing and printing, and the file retrival. The code behind this function is:
 \begin{figure}[H]
@@ -344,6 +345,16 @@ Those tests are encompassed by the following itemize, which are the files in the
         \caption{Image of outputs on the command line.}
     \end{figure}
 \end{itemize}
+Based on the grading for the benchmark, all results are exactly the same as the expected values, thus we managed to get a total grade of $g = 0$. Implying that our implementation for the Chord Calculator achieves the desired behavior. 
 \section{Discussion}
 This deliverable manages to encompass the desire behavior of the chord calculator. It manages to do so with the use of the functions seen in section \ref{fig:Functions}, with proven results in Section \ref{fig:Results} with the use of the examples sent by the professor. The examples are in the folder \textbf{Songs} appended with this document. For a more detailed analysis on the functions used to develop the overall functionality please revise the \textbf{ChordCalc.c} file found in the same folder as this document.
+
+\begin{thebibliography}{9}
+    \bibitem{texbook}
+    Kenneth C. Louden \& Kenneth A. Lambert (2011) \emph{Programming Languages - Principles and Practice}, Cengage Learning.
+    
+    \bibitem{polynizer2024}
+    Polynizer (2024). Polynizer: The Quick and Easy Way to Play Music You Love. Retrieved from \url{https://polynizer.com}
+\end{thebibliography}
+
 \end{document}
