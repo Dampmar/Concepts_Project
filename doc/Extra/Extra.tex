@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage[a4paper, margin=1in]{geometry} % Adjust margin size as needed
+\usepackage{graphicx} % Required for inserting images
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily}
+\usepackage{float}
+\usepackage{courier}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{MnSymbol}
+\usepackage{indentfirst}
+
+\begin{document}
+\title{Extended Project
+\author{Daniel Marin and Jennifer Vicentes}
+\date{November 16$^{th}$, 2024}}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+The purpose of this project was to put in practice de concepts seen in class, by creating a fully fledged chord calculator based on the subject of parsing primarily and the concepts of programming as a whole.
+\subsection{Grammar Rules}
+\begin{figure}[H]
+    \begin{centering}
+    \begin{lstlisting}
+            input:=  song EOF
+             song:=  bar {bar} "|"
+              bar:=  [meter] chords "|"
+            meter:=  numerator "/" denominator
+        numerator:=  "1" | "2" | "3" | ... | "15"
+      denominator:=  "1" | "2" | "4" | "8" | "16"
+           chords:=  "NC" | "%" | chord {chord}
+            chord:=  root [description] [bass]
+             root:=  note
+             note:=  letter [acc]
+           letter:=  "A" | "B" | "C" | ... | "G" |
+              acc:=  "#" | "b"
+      description:=  [qual] [qnum] [add] [sus] [omit]
+      /* at least one, but not both qual & sus; see quiz 8 */
+             qual:=  "-" | "+" | "o" | "5" | "1"
+             qnum:=  "6" | ["^"] "7" | ["^"] ext
+              ext:=  "9" | "11" | "13"
+              add:=  alt | "(" alt ")"
+              alt:=  [acc] "5" | [acc] ext
+              sus:=  "sus2" | "sus4" | "sus24"
+             omit:=  "no3" | "no5" | "no35"
+             bass:=  "/" note
+    \end{lstlisting}
+    \caption{Chords grammar. The input consists of the chords in a song separated by bar lines ``$\vert$'' plus optional meter information for the bars. Figure 2 shows an example. (This grammar is a subset of the grammar used by Polynizer: \url{https://www.polynizer.com}.)}
+    \label{fig:grammar}
+    \end{centering}
+\end{figure}
+
+\subsection{First And Follow Sets}
+\begin{figure}[H]
+    \def\arraystretch{1.5}%
+    \begin{tabularx}{\textwidth}{l|X}
+        Nonterminal & First set \\
+        \hline 
+        \hline 
+        \lstinline|input| & \{1, 2, 3, \ldots, 15, A, B, C, D, E, F, G, \lstinline|NC|, \%\} \\ 
+        \hline 
+        \lstinline|song| & \{1, 2, 3, \ldots, 15, A, B, C, D, E, F, G, \lstinline|NC|, \%\} \\ 
+        \hline
+        \lstinline|bar| & \{1, 2, 3, \ldots, 15, A, B, C, D, E, F, G, \lstinline|NC|, \%\} \\ 
+        \hline 
+        \lstinline|meter| & \{1, 2, 3, \ldots, 15\} \\ 
+        \hline 
+        \lstinline|numerator| & \{1, 2, 3, \ldots, 15\} \\ 
+        \hline 
+        \lstinline|denominator| & \{1, 2, 4, 8, 16\} \\ 
+        \hline 
+        \lstinline|chords| & \{A, B, C, D, E, F, G, \lstinline|NC|, \%\} \\
+        \hline
+        \lstinline|chord| & \{A, B, C, D, E, F, G\} \\
+        \hline 
+        \lstinline|root| & \{A, B, C, D, E, F, G\} \\
+        \hline
+        \lstinline|note| & \{A, B, C, D, E, F, G\} \\
+        \hline
+        \lstinline|letter| & \{A, B, C, D, E, F, G\} \\
+        \hline 
+        \lstinline|acc| & \{\#, b\}\\
+        \hline 
+        \lstinline|description| &\\
+        \hline 
+        \lstinline|qual| & \{-, +, o, 5, 1\}\\
+        \hline 
+        \lstinline|qnum| & \{6, 7, 9, 11, 13, \lstinline|^|\}\\
+        \hline 
+        \lstinline|ext| & \{9, 11, 13\} \\
+        \hline 
+        \lstinline|add| & \\
+        \hline 
+        \lstinline|alt| & \\
+        \hline 
+        \lstinline|sus| & \{\texttt{sus2}, \texttt{sus4}, \texttt{sus24}\} \\
+        \hline 
+        \lstinline|omit| & \{\texttt{no2}, \texttt{no5}, \texttt{no35}\} \\
+        \hline 
+        \lstinline|bass| & \{/\} \\
+        \hline
+    \end{tabularx}
+\end{figure}
+
+\end{document}
