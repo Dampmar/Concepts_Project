@@ -54,6 +54,7 @@ typedef enum {
 
 // Enum for additions 
 typedef struct {
+    bool parenthesis;
     char accid;     // Accidental for the alternative (e.g., '#', 'b', or '\0)
     int add_type;   // 5, 9, 11, 13 
 } Addition;

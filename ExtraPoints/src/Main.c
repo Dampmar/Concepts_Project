@@ -3,18 +3,67 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "Chord.h"
+#include "Program.h"
 
 FILE *inputFile;
 char token;
 
-// Main Function 
-int main(void) {
+void error(const char* message);
+void getToken();
+void match(char c);
+void input();
+void song(ChordNode** head);
+void bar(ChordNode** head);
+void meter();
+int numerator();
+int denominator();
+void chords(ChordNode** head);
+void chord(Chord* chord);
+void root(Note* root);
+void note(Note* res);
+char letter();
+char acc();
+void description(Chord* chord);
+Quality qual();
+Extension qnum();
+void add(Chord* chord);
+Suspension sus();
+Omission omit();
+void bass(Note* bass);
+void freeChords(ChordNode* head);
+ChordNode* appendChord(ChordNode* head, Chord chord);
+void printChords(ChordNode* head);
+void alt(Chord* chord);
+void printChord(const Chord* chord); // Added declaration for printChord
 
+int main(void) {
+    char filepath[365];
+    printf("Enter the path of the file to be parsed: ");
+    scanf("%[^\n]s", filepath);
+    
+    // Checking if the file is indeed a .txt file 
+    if (strlen(filepath) < 4 || strcmp(filepath + strlen(filepath) - 4, ".txt") != 0) {
+        printf("Error: Only .txt files are supported\n");
+        exit(1);
+    }
+
+    // Opening the file to handle it 
+    inputFile = fopen(filepath, "r");
+    if (inputFile == NULL){
+        printf("Error: cannot open file\n");
+        exit(1);
+    }
+    
+    printf("The following characters demonstrate the tokens being parsed.\n\n");
+    getToken();
+    input();
+    printf("\nParsing completed successfully\n");
+    fclose(inputFile);
+    return 0;
 }
 
 /*  File Parsing functions */
-void error(char* message) {
+void error(const char* message) {
     printf("\nParse error: %s\n", message);
     exit(1);
 }
@@ -31,14 +80,17 @@ void getToken(){
 
 // Checking if the result is the expected one 
 void match(char c){
-    if (token == c) 
+    if (token == c) {
         getToken();
-    else 
-        error(c);
+    } else if (token == EOF) {
+        error("Unexpected end of input");
+    } else {
+        error("Unexpected character");
+    }
 }
 
 /*  Parser functions */
-void input(){
+void input() {
     ChordNode* head = NULL;
     song(&head);
     match(EOF);
@@ -46,174 +98,145 @@ void input(){
     freeChords(head);
 }
 
-void song(ChordNode** head){
+void song(ChordNode** head) {
     do {
         bar(head);
-    } while (token != '|');
+    } while (token != EOF && token != '|');
     match('|');
 }
 
 void bar(ChordNode** head) {
-    if (isdigit(token))
-        meter();
+    if (isdigit(token)) meter();
     chords(head);
     match('|');
 }
 
 void meter(){
-    int x = numerator();
+    numerator();
     match('/');
-    int y = denominator();
+    denominator();
 }
 
-int numerator(){
+int numerator() {
     int value = 0;
-    // if not a digit call error 
-    if (!isdigit(token))
-        error("Expected number");
-
-    // continue retrieving adjacent digits 
-    while (isdigit(token)){
+    if (!isdigit(token)) error("Expected number");
+    while (isdigit(token)) {
         value = value * 10 + (token - '0');
         getToken();
     }
-
-    // check if the value is in the correct range 
-    if (value < 0 || value > 15)
-        error("Invalid numerator");
+    if (value < 1 || value > 15) error("Invalid numerator");
     return value;
 }
 
 int denominator(){
     int value = 0;
-    // if not a digit call error 
-    if (!isdigit(token))
-        error("Expected a number");
-    // continue retrieving adjacent digits 
+    if (!isdigit(token)) error("Expected number");
     while (isdigit(token)){
         value = value * 10 + (token - '0');
         getToken();
     }
-    // check if the value is in the correct range 
     if (value != 1 && value != 2 && value != 4 && value != 8 && value != 16)
         error("Invalid denominator");
     return value;
 }
 
-void chords(ChordNode** head){
+void chords(ChordNode** head) {
     if (token == 'N') {
         match('N');
         match('C');
     } else if (token == '%') {
         match('%');
     } else {
-        do { 
+        do {
             Chord newChord;
-            chord(&newChord);                       // Fill newChord with parsed data
-            *head = appendChord(*head, newChord);   // Add chord to lsit
-        } while (token != '|');
+            chord(&newChord);  
+            *head = appendChord(*head, newChord);
+        } while (token != '|' && token != EOF);
     } 
 }
 
-void chord(Chord* chord){
+void chord(Chord* chord) {
     memset(chord, 0, sizeof(Chord));
-    root(chord->root);
-    if (token == '-' || token == '+' || token == 'o' || token == '5' || token == '1' || token == '6' || token == '7' || 
-        token == '9' || token == '1' || token == '^' || token == '#' || token == '(' || token == '5' || token == 'b' || token == 's' || token == 'n') {
-            description(chord);
+    root(&chord->root);
+    if (strchr("-+o51679^", token) != NULL) {
+        description(chord);
     } else {
-        chord->qual = ' ';
-        chord->sus = 0;
-        chord->ext_type = ' ';
-        chord->extension = 0;
-        chord->add[0] = '\0';
-        chord->omit = 0;
+        chord->qual = QUAL_MAJOR;
+        chord->sus = SUS_NONE;
+        chord->qnum = EXT_NONE;
+        chord->add.accid = '\0';
+        chord->add.add_type = -1;
+        chord->om = OM_NONE;
     }
 
     if (token == '/') {
-        bass(chord->bass);
+        bass(&chord->bass);
     } else {
-        chord->bass[0] = '\0';
+        chord->bass = (Note) { .letter = '\0', .accidental = '\0' };
     }
 }
 
-void root(char* root){
+void root(Note* root) {
     note(root);
 }
 
-void note(char *res){
-    res[0] = letter();
-    if (token == 'b' || token == '#'){
-        res[1] = acc();
-        res[2] = '\0';
-    } else {
-        res[1] = '\0';
-    }
+void note(Note* res) {
+    res->letter = letter();
+    res->accidental = (token == 'b' || token == '#') ? acc(): '\0';
 }
 
-char letter(){
+char letter() {
     char temp; 
-    switch(token){
-        case 'A':
-        case 'B':
-        case 'C':
-        case 'D':
-        case 'E':
-        case 'F':
-        case 'G':
-            temp = token;
-            getToken();
-            break;
-        default:
-            error("invalid character found");
-            break;
+    if (strchr("ABCDEFG", token) != NULL) {
+        temp = token;
+        getToken();
+    } else {
+        error("Invalid letter found");
     }
     return temp;
 }
 
-char acc(){
+char acc() {
     char temp;
-    switch(token){
-        case '#':
-        case 'b':
-            temp = token;
-            getToken();
-            break;
-        default:
-            error("invalid accidental");
-            break;
+    if (strchr("#b", token) != NULL) {
+        temp = token;
+        getToken();
+    } else {
+        error("Invalid accidental");
     }
     return temp;
 }
 
-void description(Chord* chord){
+void description(Chord* chord) {
     bool hasQual = false, hasQnum = false, hasSus = false, hasAdd = false, hasOmit = false;
-    if (token == '-' || token == '+' || token == 'o' || token == '5' || token == '1'){
+    if (strchr("-o51", token) != NULL) {
         chord->qual = qual();
         hasQual = true;
-    } else { chord->qual = ' ';}
+    } else { chord->qual = QUAL_MAJOR; }
 
-    if (token == '^' || token == '6' || token == '7' || token == '9' || token == '1'){
-        qnum(chord);
+    if (strchr("^67891", token) != NULL) {
+        chord->qnum = qnum();
         hasQnum = true;
-    } else { chord->extension = 0; chord->ext_type = ' '; }
+    } else { chord->qnum = EXT_NONE; }
 
-    if (token == '#' || token == 'b' || token == '('){
+    if (strchr("#b(", token) != NULL) {
         add(chord);
         hasAdd = true;
-    } else { chord->add[0] = '\0'; }
+    } else {
+        chord->add.accid = '\0';
+        chord->add.add_type = -1;
+    }
 
     if (token == 's') {
-        sus(chord);
+        chord->sus = sus();
         hasSus = true;
-    } else { chord->sus = 0; }
+    } else { chord->sus = SUS_NONE; }
 
-    if (token == 'n'){
-        omit(chord);
+    if (token == 'n') {
+        chord->om = omit();
         hasOmit = true;
-    } else { chord->omit = 0; }
+    } else { chord->om = OM_NONE; }
 
-    // Checking if more than 0 of the routes where taken 
     if (hasQual && hasSus)
         error("Invalid sequence of description");
 
@@ -221,68 +244,135 @@ void description(Chord* chord){
         error("Expected at least one description to be handled.");
 }
 
-char qual(){
-    char temp;
-    switch(token){
-        case '-':
-        case '+':
-        case 'o':
-        case '1':
-        case '5':
-            temp = token;
-            getToken();
-            break;
-        default:
-            error("invalid qual");
-            break;
+Quality qual() {
+    switch(token) {
+        case '-': match('-'); return QUAL_MINOR;
+        case '+': match('+'); return QUAL_AUG;
+        case 'o': match('o'); return QUAL_DIM;
+        case '5': match('5'); return QUAL_POW;
+        case '1': match('1'); return QUAL_UNISON;
+        default: error("Invalid quality");
     }
+}
+
+Extension qnum() {
+    Extension temp;
+    if (token == '^') {
+        match('^');
+        switch (token) {
+            case '7':
+                temp = EXT_SSEV;
+                break;
+            case '9':
+                temp = EXT_SNIN;
+                break;
+            case '1':
+                getToken();
+                if (token == '1') temp = EXT_SELE;
+                else if (token == '3') temp = EXT_STHR;
+                else error("Expected a '1' or '3' after '^1'");
+                break;
+            default:
+                error("Invalid extended type after '^'");
+                break;
+        }
+    } else {
+        switch (token) {
+            case '6':
+                temp = EXT_SIX;
+                break;
+            case '7':
+                temp = EXT_SEV;
+                break;
+            case '9':
+                temp = EXT_NIN;
+                break;
+            case '1':
+                getToken();
+                if (token == '1') temp = EXT_ELE;
+                else if (token == '3') temp = EXT_THR;
+                else error("Expected a '1' or '3' after '1'");
+                break;
+            default:
+                error("Invalid extended type");
+                break;
+        }
+    }
+    getToken();
     return temp;
 }
 
-void qnum(Chord* chord){
-    char temp = ' ';
-    if (token == '^') {
-        temp - token;
-        match('^');
+Suspension sus() {
+    Suspension result = SUS_NONE;
+
+    if (token == '2') {
+        match('2');
+        result = SUS2;
+    } else if (token == '4') {
+        match('4');
+        result = SUS4;
     }
-    chord->ext_type = temp;
-    int x = ext1();
-    chord->extension = x;
-}
 
-int ext1(){
-    // num => "7" | "9" | "11" | "13"
-    int value = 0; 
-    if (!isdigit(token))
-        error("Expected a number");
-    while (isdigit(token)) {
-        value = value * 10 + (token - '0');
-        match(token);
+    // Check for combined suspension
+    if (result == SUS2 && token == '4') {
+        match('4'); // Consume '4'
+        return SUS24; // Return combined suspension
     }
-    if (!(value == 7 || value == 9 || value == 11 || value == 13 || value == 6))
-        error("invalid num");
-    return value;
+
+    // If only one or none is matched, return the result
+    return result;
 }
 
-void add(Chord* chord){
-    if (token == '('){
-        match('(');
-        alt(chord);
-        match(')');
-    }  else { alt(chord); }
+Omission omit() {
+    if (token == 'n') {
+        match('n');
+        return OM;
+    }
+    error("Invalid omission type");
+    return OM_NONE; // should never reach here
 }
 
-void alt(Chord* chord){
-    if (token == '#' || token == 'b')
-        chord->add[] = acc();
-    
-    int ext;
-    if (token == '5') {
-        ext = atoi(token);
-        match('5');
+void bass(Note* bass) {
+    note(bass);
+}
+
+// Linked List Functions
+ChordNode* appendChord(ChordNode* head, Chord chord) {
+    ChordNode* newNode = (ChordNode*)malloc(sizeof(ChordNode));
+    newNode->chord = chord;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        return newNode; // New head
     } else {
-        ext = ext1();
+        ChordNode* current = head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newNode; // Append to the end
+        return head; // Return the unchanged head
     }
-    if 
+}
 
+void printChords(ChordNode* head) {
+    ChordNode* current = head;
+    while (current != NULL) {
+        printChord(&current->chord);
+        current = current->next;
+    }
+}
+
+void printChord(const Chord* chord) {
+    // Print logic for Chord
+    printf("Chord: Root - %c, Quality - %d, Bass - %c\n", chord->root.letter, chord->qual, chord->bass.letter);
+}
+
+// Free memory for linked list
+void freeChords(ChordNode* head) {
+    ChordNode* current = head;
+    while (current != NULL) {
+        ChordNode* next = current->next;
+        free(current);
+        current = next;
+    }
 }
